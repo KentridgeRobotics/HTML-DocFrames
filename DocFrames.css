@@ -1,0 +1,236 @@
+body {
+  padding:0px;
+  margin:0px;
+  font: 0.24in "Lucida Console", Monaco, monospace;
+  text-transform: uppercase;
+}
+
+body.size_b {
+	height: 11in;
+	width: 17in;	
+}
+
+div, span {
+	box-sizing: border-box;
+}
+
+.docframe {
+	height: 11in;
+	width: 17in;	
+	position: absolute;
+}
+
+.docframe .horiz {
+	height: 0.5in;
+	width: 100%;
+	display: table;
+	position: absolute;
+}
+
+.docframe .horiz span {
+	height: 100%;
+	width: 4.25in; /* TODO: size A, B, D only */;
+	display: table-cell;
+	text-align: center;
+	vertical-align:middle; 
+	border-right-style: solid;
+	border-right-width: thin;
+}
+
+.docframe .vert{
+	width: 0.5in;
+	height: 100%;
+	/* display: table; */
+	position: absolute;
+}
+
+.docframe .vert span {
+	width: 100%;
+	line-height: 5.50in; /* TODO: size A, B, D only */;
+	display: block;
+	text-align: center;
+	border-bottom-style: solid;
+	border-bottom-width: thin;
+}
+
+.docframe div span:last-child {
+    border-right-width: 0px;
+    border-bottom-width: 0px;
+}
+
+
+.top {
+	top: 0px;
+}
+
+.bottom, .titleblock {
+	bottom: 0px;
+}
+
+.left {
+	left: 0px;
+}
+
+.right, .titleblock{
+	right: 0px;
+}
+
+.label {
+	font-size: 0.1in;
+	line-height: 0.12in;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+}
+
+.content {
+	position: absolute;
+	border-style: solid;
+    border-width: 2px;
+    margin: 0.5in;
+    height: 10in;
+	width: 16in; 
+}
+
+.titleblock {
+	position: absolute;
+	border-style: solid;
+    border-width: 2px 0px 0px 2px;
+}
+
+.titleblock div {
+	position: relative;
+}
+
+.titleblock .col{
+	float: right;
+	height: 100%;
+	border-left: 1px solid;
+}
+
+.titleblock .col:last-child{
+	border-left: 0px solid;
+}
+
+.titleblock .row{
+	display: block;
+	border-bottom: 1px solid;
+}
+
+.titleblock .row>div{
+	float: left;
+	height: 100%;
+	border-right: 1px solid;
+}
+
+.titleblock .row>div:last-child{
+	border-right: 0px solid;
+}
+
+.titleblock .row:last-child{
+	border-bottom: 0px solid;
+}
+
+
+.titleblock .approvers{
+	vertical-align: top;
+}
+
+.titleblock .approvers span{
+	/*height: 0.25in; */
+	display: block;
+	position: relative;
+	border-bottom: 1px dashed;
+}
+
+.titleblock .company{
+	/* height: 0.625in; */
+	/* font-size: .125in; */
+	padding: 0.05in;
+}
+
+.titleblock .company img{
+	float: left;
+	max-height: 100%;
+    width: auto;
+    margin-right: .125in;
+}
+
+.titleblock .sheet_size{
+	/*display: table-cell; */
+	vertical-align: bottom;
+	text-align: center;
+	line-height: 0.45in;
+}
+
+.titleblock .sheetinfo .sheet_no{
+	float: right;
+	border-left: 1px solid;
+}
+
+
+/*Size A, B, C, G Titleblock Dimensions */
+
+.titleblock {
+	/*max-width: 6.25in;
+	max-height: 2.0in; */
+}
+
+.titleblock .main{
+	width: 4.25in;
+}
+
+.titleblock .approvers{
+	width: 2in;
+}
+
+.titleblock .approvers span{
+	height: 0.25in;
+}
+
+.titleblock .company{
+	height: 0.625in;
+	font-size: .125in;
+}
+
+.titleblock .title{
+	height: 0.75in;
+}
+
+.titleblock .docinfo{
+	height: 0.375in;
+}
+
+.titleblock .docinfo .sheet_size{
+	width: 0.375in;
+}
+
+.titleblock .docinfo .cage_code{
+	width: 1.125in;
+}
+
+.titleblock .docinfo .dwg_no{
+	width: 2.375in;
+}
+
+.titleblock .sheetinfo{
+	height: 0.25in;
+}
+
+.titleblock .sheetinfo .scale{
+	width: 1in;
+}
+
+.titleblock .sheetinfo .sheet_no{
+	width: 1.75in;
+}
+
+/*Continuation sheet hidden elements*/
+
+.continuation .approvers, .continuation .company, .continuation .title, .continuation .rev{
+	display: none;
+}
+
+.continuation .titleblock .col, .continuation .titleblock .dwg_no{
+	border: 0px solid;
+}
