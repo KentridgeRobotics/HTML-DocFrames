@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>ASME Y14.1 Size B document Frame</title>
+	<link rel="stylesheet" href="DocFrames.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="setoptions.js"></script>
+</head>
+<body class="size_b cover">
+<div class = "docframe">
+	<ol class = "top horiz"><li/><li/><li/><li/><li/><li/><li/><li/></ol>
+	<ol class = "bottom horiz"><li/><li/><li/><li/><li/><li/><li/><li/></ol>
+	<ol class = "left vert"><li/><li/><li/><li/><li/><li/><li/><li/></ol>
+	<ol class = "right vert"><li/><li/><li/><li/><li/><li/><li/><li/></ol>
+</div>
+
+<div class="content">
+
+<div id="options">
+	<h3>ASME Y14.1 Drawing Sheet Options</h2>
+
+	<strong>Sheet Size</strong><br>
+	<select name="size" id="size_opt">
+		<option value="size_a_h">A Landscape</option>
+		<option value="size_a_v">A Portrait</option>
+		<option value="size_b" selected="selected">B</option>
+		<option value="size_c">C (TODO)</option>
+		<option value="size_d">D (TODO)</option>
+		<option value="size_e">E (TODO)</option>
+		<option value="size_f">F (TODO)</option>
+	</select>
+	<br><br>
+
+	<strong>Sheet type</strong><br>
+	<input type="radio" name="sheet_type" value="cover" checked> Title Page<br>
+	<input type="radio" name="sheet_type" value="continuation"> Continuation
+
+	<br><br>
+	<strong><a href="javascript:window.print()">Print this Page</a></strong>
+</div>
+
+<div class="titleblock">
+	<div class = "main col">
+		<div class = "company row"><img src="cc.svg" class="logo">Sample Company<br>1234 Test Lane.<br>Nowhere, NY 12345</div>
+		<div class = "title row"><span class="label">TITLE</span></div>
+		<div class = "docinfo row">
+			<div class = "sheet_size"><span class="label">SIZE</span>B</div>
+			<div class = "cage_code"><span class="label">CAGE CODE</span></div>
+			<div class = "dwg_no"><span class="label">DWG NO</span></div>
+			<div class = "rev"><span class="label">REV</span></div>
+		</div>
+		<div class = "sheetinfo row">
+			<div class = "scale"><span class="label">SCALE</span></div>
+			<div class = "sheet_no"><span class="label">SHEET</span></div>
+		</div>
+	</div>
+	<div class = "approvers col"><span class="label">DRAWN BY</span><span class="label">CHECKED BY</span></div>
+</div>
+
+</div>
+</body>
+</html>

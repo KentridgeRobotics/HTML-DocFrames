@@ -1,236 +1,252 @@
 body {
-  padding:0px;
-  margin:0px;
+  padding: 0px;
+  margin: 0px;
   font: 0.24in "Lucida Console", Monaco, monospace;
-  text-transform: uppercase;
-}
+  text-transform: uppercase; }
 
-body.size_b {
-	height: 11in;
-	width: 17in;	
-}
-
-div, span {
-	box-sizing: border-box;
-}
+div, span, li, ol {
+  box-sizing: border-box; }
 
 .docframe {
-	height: 11in;
-	width: 17in;	
-	position: absolute;
-}
+  position: absolute; }
+  .docframe ol {
+    margin: 0px;
+    padding: 0px; }
+  .docframe .horiz {
+    height: 0.5in;
+    width: 100%;
+    position: absolute;
+    /* TODO: reverse these? */ }
+    .docframe .horiz > li {
+      counter-increment: h-frame;
+      height: 100%;
+      text-align: center;
+      border-left: 1px solid;
+      display: inline-block; }
+      .docframe .horiz > li:before {
+        content: counter(h-frame,decimal) " ";
+        line-height: .5in; }
+      .docframe .horiz > li:first-child {
+        counter-reset: h-frame;
+        border-left: 0px solid; }
+  .docframe .vert {
+    width: 0.5in;
+    height: 100%;
+    position: absolute;
+    /* TODO: reverse these? */ }
+    .docframe .vert > li {
+      width: 100%;
+      display: block;
+      text-align: center;
+      border-top: 1px solid;
+      counter-increment: v-frame; }
+      .docframe .vert > li:before {
+        content: counter(v-frame,upper-alpha) " "; }
+      .docframe .vert > li:first-child {
+        counter-reset: v-frame;
+        border-top: 0px solid; }
 
-.docframe .horiz {
-	height: 0.5in;
-	width: 100%;
-	display: table;
-	position: absolute;
-}
+/* size-specific docframe options */
+body.size_a_h .docframe {
+  height: 8.5in;
+  width: 11in; }
+  body.size_a_h .docframe li:nth-child(n+3) {
+    display: none; }
+  body.size_a_h .docframe .horiz > li {
+    width: 5.50in; }
+  body.size_a_h .docframe .vert > li {
+    line-height: 4.25in; }
+body.size_a_h .content {
+  height: 7.5in;
+  width: 10in; }
 
-.docframe .horiz span {
-	height: 100%;
-	width: 4.25in; /* TODO: size A, B, D only */;
-	display: table-cell;
-	text-align: center;
-	vertical-align:middle; 
-	border-right-style: solid;
-	border-right-width: thin;
-}
+body.size_a_v .docframe {
+  height: 11in;
+  width: 8.5in; }
+  body.size_a_v .docframe li:nth-child(n+3) {
+    display: none; }
+  body.size_a_v .docframe .horiz > li {
+    width: 4.25in; }
+  body.size_a_v .docframe .vert > li {
+    line-height: 5.50in; }
+body.size_a_v .content {
+  height: 10in;
+  width: 7.5in; }
 
-.docframe .vert{
-	width: 0.5in;
-	height: 100%;
-	/* display: table; */
-	position: absolute;
-}
-
-.docframe .vert span {
-	width: 100%;
-	line-height: 5.50in; /* TODO: size A, B, D only */;
-	display: block;
-	text-align: center;
-	border-bottom-style: solid;
-	border-bottom-width: thin;
-}
-
-.docframe div span:last-child {
-    border-right-width: 0px;
-    border-bottom-width: 0px;
-}
-
+body.size_b .docframe {
+  height: 11in;
+  width: 17in; }
+  body.size_b .docframe .horiz > li {
+    width: 4.25in;
+    /* TODO: size A, B, D only */ }
+    body.size_b .docframe .horiz > li:nth-child(n+5) {
+      display: none; }
+  body.size_b .docframe .vert > li {
+    line-height: 5.50in; }
+    body.size_b .docframe .vert > li:nth-child(n+3) {
+      display: none; }
+body.size_b .content {
+  height: 10in;
+  width: 16in; }
 
 .top {
-	top: 0px;
-}
+  top: 0px; }
 
 .bottom, .titleblock {
-	bottom: 0px;
-}
+  bottom: 0px; }
 
 .left {
-	left: 0px;
-}
+  left: 0px; }
 
-.right, .titleblock{
-	right: 0px;
-}
+.right, .titleblock {
+  right: 0px; }
 
 .label {
-	font-size: 0.1in;
-	line-height: 0.12in;
-	position: absolute;
-	top: 0px;
-	left: 0px;
-}
+  font-size: 0.1in;
+  line-height: 0.12in;
+  position: absolute;
+  top: 0px;
+  left: 0px; }
 
 .content {
-	position: absolute;
-	border-style: solid;
-    border-width: 2px;
-    margin: 0.5in;
-    height: 10in;
-	width: 16in; 
-}
+  position: absolute;
+  border-style: solid;
+  border-width: 2px;
+  margin: 0.5in; }
 
 .titleblock {
-	position: absolute;
-	border-style: solid;
-    border-width: 2px 0px 0px 2px;
-}
+  position: absolute;
+  border-style: solid;
+  border-width: 2px 0px 0px 2px; }
+  .titleblock div {
+    position: relative; }
+  .titleblock .col {
+    float: right;
+    height: 100%;
+    border-left: 1px solid; }
+    .titleblock .col:last-child {
+      border-left: 0px solid; }
+  .titleblock .row {
+    display: block;
+    border-bottom: 1px solid; }
+    .titleblock .row > div {
+      float: left;
+      height: 100%;
+      border-right: 1px solid; }
+      .titleblock .row > div:last-child {
+        border-right: 0px solid; }
+    .titleblock .row:last-child {
+      border-bottom: 0px solid; }
+  .titleblock .approvers {
+    vertical-align: top; }
+    .titleblock .approvers span {
+      /*height: 0.25in; */
+      display: block;
+      position: relative;
+      border-bottom: 1px dashed; }
+  .titleblock .company {
+    padding: 0.05in; }
+    .titleblock .company img {
+      float: left;
+      max-height: 100%;
+      width: auto;
+      margin-right: .125in; }
+  .titleblock .sheet_size {
+    vertical-align: bottom;
+    text-align: center;
+    line-height: 0.45in; }
+  .titleblock .sheetinfo .sheet_no {
+    float: right;
+    border-left: 1px solid; }
 
-.titleblock div {
-	position: relative;
-}
+/*Size A, B, C Titleblock Dimensions */
+body.size_a_h .titleblock .main, body.size_a_v .titleblock .main, body.size_b .titleblock .main, body.size_c .titleblock .main {
+  width: 4.25in; }
+body.size_a_h .titleblock .approvers, body.size_a_v .titleblock .approvers, body.size_b .titleblock .approvers, body.size_c .titleblock .approvers {
+  width: 2in; }
+  body.size_a_h .titleblock .approvers span, body.size_a_v .titleblock .approvers span, body.size_b .titleblock .approvers span, body.size_c .titleblock .approvers span {
+    height: 0.25in; }
+body.size_a_h .titleblock .company, body.size_a_v .titleblock .company, body.size_b .titleblock .company, body.size_c .titleblock .company {
+  height: 0.625in;
+  font-size: .125in; }
+body.size_a_h .titleblock .title, body.size_a_v .titleblock .title, body.size_b .titleblock .title, body.size_c .titleblock .title {
+  height: 0.75in; }
+body.size_a_h .titleblock .docinfo, body.size_a_v .titleblock .docinfo, body.size_b .titleblock .docinfo, body.size_c .titleblock .docinfo {
+  height: 0.375in; }
+  body.size_a_h .titleblock .docinfo .sheet_size, body.size_a_v .titleblock .docinfo .sheet_size, body.size_b .titleblock .docinfo .sheet_size, body.size_c .titleblock .docinfo .sheet_size {
+    width: 0.375in; }
+  body.size_a_h .titleblock .docinfo .cage_code, body.size_a_v .titleblock .docinfo .cage_code, body.size_b .titleblock .docinfo .cage_code, body.size_c .titleblock .docinfo .cage_code {
+    width: 1.125in; }
+  body.size_a_h .titleblock .docinfo .dwg_no, body.size_a_v .titleblock .docinfo .dwg_no, body.size_b .titleblock .docinfo .dwg_no, body.size_c .titleblock .docinfo .dwg_no {
+    width: 2.375in; }
+body.size_a_h .titleblock .sheetinfo, body.size_a_v .titleblock .sheetinfo, body.size_b .titleblock .sheetinfo, body.size_c .titleblock .sheetinfo {
+  height: 0.25in; }
+  body.size_a_h .titleblock .sheetinfo .scale, body.size_a_v .titleblock .sheetinfo .scale, body.size_b .titleblock .sheetinfo .scale, body.size_c .titleblock .sheetinfo .scale {
+    width: 1in; }
+  body.size_a_h .titleblock .sheetinfo .sheet_no, body.size_a_v .titleblock .sheetinfo .sheet_no, body.size_b .titleblock .sheetinfo .sheet_no, body.size_c .titleblock .sheetinfo .sheet_no {
+    width: 1.75in; }
 
-.titleblock .col{
-	float: right;
-	height: 100%;
-	border-left: 1px solid;
-}
-
-.titleblock .col:last-child{
-	border-left: 0px solid;
-}
-
-.titleblock .row{
-	display: block;
-	border-bottom: 1px solid;
-}
-
-.titleblock .row>div{
-	float: left;
-	height: 100%;
-	border-right: 1px solid;
-}
-
-.titleblock .row>div:last-child{
-	border-right: 0px solid;
-}
-
-.titleblock .row:last-child{
-	border-bottom: 0px solid;
-}
-
-
-.titleblock .approvers{
-	vertical-align: top;
-}
-
-.titleblock .approvers span{
-	/*height: 0.25in; */
-	display: block;
-	position: relative;
-	border-bottom: 1px dashed;
-}
-
-.titleblock .company{
-	/* height: 0.625in; */
-	/* font-size: .125in; */
-	padding: 0.05in;
-}
-
-.titleblock .company img{
-	float: left;
-	max-height: 100%;
-    width: auto;
-    margin-right: .125in;
-}
-
-.titleblock .sheet_size{
-	/*display: table-cell; */
-	vertical-align: bottom;
-	text-align: center;
-	line-height: 0.45in;
-}
-
-.titleblock .sheetinfo .sheet_no{
-	float: right;
-	border-left: 1px solid;
-}
-
-
-/*Size A, B, C, G Titleblock Dimensions */
-
-.titleblock {
-	/*max-width: 6.25in;
-	max-height: 2.0in; */
-}
-
-.titleblock .main{
-	width: 4.25in;
-}
-
-.titleblock .approvers{
-	width: 2in;
-}
-
-.titleblock .approvers span{
-	height: 0.25in;
-}
-
-.titleblock .company{
-	height: 0.625in;
-	font-size: .125in;
-}
-
-.titleblock .title{
-	height: 0.75in;
-}
-
-.titleblock .docinfo{
-	height: 0.375in;
-}
-
-.titleblock .docinfo .sheet_size{
-	width: 0.375in;
-}
-
-.titleblock .docinfo .cage_code{
-	width: 1.125in;
-}
-
-.titleblock .docinfo .dwg_no{
-	width: 2.375in;
-}
-
-.titleblock .sheetinfo{
-	height: 0.25in;
-}
-
-.titleblock .sheetinfo .scale{
-	width: 1in;
-}
-
-.titleblock .sheetinfo .sheet_no{
-	width: 1.75in;
-}
-
+/*Size D, E, F Titleblock Dimensions */
+/* TODO: detail this out!
+body.size_d, body.size_e, body.size_f {   
+	.titleblock {
+		.main{
+			width: 4.25in;
+		}
+		.approvers{
+			width: 2in;
+			span{
+				height: 0.25in;
+			}
+		}
+		.company{
+			height: 0.625in;
+			font-size: .125in;
+		}
+		.title{
+			height: 0.75in;
+		}
+		.docinfo{
+			height: 0.375in;
+			.sheet_size{
+				width: 0.375in;
+			}
+			.cage_code{
+				width: 1.125in;
+			}
+			.dwg_no{
+				width: 2.375in;
+			}
+		}
+		.sheetinfo{
+			height: 0.25in;
+			.scale{
+				width: 1in;
+			}
+			.sheet_no{
+				width: 1.75in;
+			}
+		}
+	}
+} */
 /*Continuation sheet hidden elements*/
+body.continuation .approvers, body.continuation .company, body.continuation .title, body.continuation .rev {
+  display: none; }
+body.continuation .titleblock .col, body.continuation .titleblock .dwg_no {
+  border: 0px solid; }
 
-.continuation .approvers, .continuation .company, .continuation .title, .continuation .rev{
-	display: none;
-}
+/* Options form CSS and noprint */
+#options {
+  float: left;
+  margin: 20px;
+  padding: 20px;
+  color: red;
+  border: 3px solid red;
+  text-transform: none;
+  font-size: .125in; }
 
-.continuation .titleblock .col, .continuation .titleblock .dwg_no{
-	border: 0px solid;
-}
+@media print {
+  #options, #options * {
+    display: none !important; } }
+
+/*# sourceMappingURL=DocFrames.css.map */

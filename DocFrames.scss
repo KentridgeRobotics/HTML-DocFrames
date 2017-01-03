@@ -1,0 +1,359 @@
+$page-margin: 0.5in;
+
+$size-a-height: 8.5in;
+$size-a-width: 11.0in;
+
+$size-b-height: 11.0in;
+$size-b-width: 17.0in;
+
+$size-c-height: 17.0in;
+$size-c-width: 22.0in;
+
+$size-d-height: 22.0in;
+$size-d-width: 34.0in;
+
+$size-e-height: 34.0in;
+$size-e-width: 44.0in;
+
+$size-f-height: 28.0in;
+$size-f-width: 40.0in;
+
+
+body {
+  padding:0px;
+  margin:0px;
+  font: 0.24in "Lucida Console", Monaco, monospace;
+  text-transform: uppercase;
+}
+
+div, span, li, ol {
+	box-sizing: border-box;
+}
+
+.docframe {
+	position: absolute;
+	ol{
+		margin: 0px;
+		padding: 0px;
+	}
+
+	.horiz {
+		height: $page-margin;
+		width: 100%;
+		position: absolute;
+		/* TODO: reverse these? */
+		> li {
+			counter-increment: h-frame;
+			height: 100%;
+			text-align: center; 
+			border-left: 1px solid;
+			display: inline-block;
+			&:before {
+				content: counter(h-frame, decimal) " ";
+				line-height: .5in;
+			}
+			&:first-child {
+  				counter-reset: h-frame;
+  				border-left: 0px solid;
+  			}
+		}
+	}
+
+	.vert {
+		width: $page-margin;
+		height: 100%;
+		position: absolute;
+		/* TODO: reverse these? */
+		> li {
+			width: 100%;
+			display: block;
+			text-align: center;
+			border-top: 1px solid;
+			counter-increment: v-frame;
+			&:before {
+				content: counter(v-frame, upper-alpha) " ";
+			}
+			&:first-child {
+  				counter-reset: v-frame;
+  				border-top: 0px solid;
+  			}
+		}
+	}
+}
+
+/* size-specific docframe options */
+body.size_a_h{
+	.docframe{
+		height: $size_a_height;
+		width: $size_a_width;
+		li:nth-child(n+3) {
+			display: none;
+		}
+		.horiz > li{
+			width: 5.50in;
+		}
+		.vert > li{
+			line-height: 4.25in;
+		}
+	}
+	.content{
+		height: $size_a_height - 2 * $page-margin;
+		width: $size_a_width - 2 * $page-margin;
+	}
+}
+
+body.size_a_v{
+	.docframe{
+		height: $size_a_width;
+		width: $size_a_height;
+		li:nth-child(n+3) {
+			display: none;
+		}
+		.horiz > li{
+			width: 4.25in;
+		}
+		.vert > li{
+			line-height: 5.50in;
+		}
+	}
+	.content{
+		height: $size_a_width - 2 * $page-margin;
+		width: $size_a_height - 2 * $page-margin;
+	}
+}
+
+body.size_b{
+	.docframe{
+		height: $size_b_height;
+		width: $size_b_width;
+		.horiz > li{
+			width: 4.25in; /* TODO: size A, B, D only */;
+			&:nth-child(n+5) {
+				display: none;
+			}
+		}
+		.vert > li{
+			line-height: 5.50in;
+			&:nth-child(n+3) {
+				display: none;
+			}
+		}
+	}
+	.content{
+		height: $size_b_height - 2 * $page-margin;
+		width: $size_b_width - 2 * $page-margin;
+	}
+}
+
+.top {
+	top: 0px;
+}
+
+.bottom, .titleblock {
+	bottom: 0px;
+}
+
+.left {
+	left: 0px;
+}
+
+.right, .titleblock{
+	right: 0px;
+}
+
+.label {
+	font-size: 0.1in;
+	line-height: 0.12in;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+}
+
+.content {
+	position: absolute;
+	border-style: solid;
+    border-width: 2px;
+    margin: $page-margin; 
+}
+
+.titleblock {
+	position: absolute;
+	border-style: solid;
+    border-width: 2px 0px 0px 2px;
+	div {
+		position: relative;
+	}
+
+	.col{
+		float: right;
+		height: 100%;
+		border-left: 1px solid;
+		&:last-child {
+			border-left: 0px solid;
+		}
+	}
+
+	.row{
+		display: block;
+		border-bottom: 1px solid;
+		> div{
+			float: left;
+			height: 100%;
+			border-right: 1px solid;
+			&:last-child{
+				border-right: 0px solid;
+			}
+		}
+		&:last-child{
+			border-bottom: 0px solid;
+		}
+	}
+	.approvers{
+		vertical-align: top;
+		span{
+			/*height: 0.25in; */
+			display: block;
+			position: relative;
+			border-bottom: 1px dashed;
+		}
+	}
+	.company{
+		padding: 0.05in;
+		img{
+			float: left;
+			max-height: 100%;
+			width: auto;
+			margin-right: .125in;
+		}
+	}
+	.sheet_size{
+		vertical-align: bottom;
+		text-align: center;
+		line-height: 0.45in;
+	}
+	.sheetinfo .sheet_no{
+		float: right;
+		border-left: 1px solid;
+	}
+}
+
+
+/*Size A, B, C Titleblock Dimensions */
+
+body.size_a_h, body.size_a_v, body.size_b, body.size_c {   
+	.titleblock {
+		.main{
+			width: 4.25in;
+		}
+		.approvers{
+			width: 2in;
+			span{
+				height: 0.25in;
+			}
+		}
+		.company{
+			height: 0.625in;
+			font-size: .125in;
+		}
+		.title{
+			height: 0.75in;
+		}
+		.docinfo{
+			height: 0.375in;
+			.sheet_size{
+				width: 0.375in;
+			}
+			.cage_code{
+				width: 1.125in;
+			}
+			.dwg_no{
+				width: 2.375in;
+			}
+		}
+		.sheetinfo{
+			height: 0.25in;
+			.scale{
+				width: 1in;
+			}
+			.sheet_no{
+				width: 1.75in;
+			}
+		}
+	}
+}
+
+/*Size D, E, F Titleblock Dimensions */
+/* TODO: detail this out!
+body.size_d, body.size_e, body.size_f {   
+	.titleblock {
+		.main{
+			width: 4.25in;
+		}
+		.approvers{
+			width: 2in;
+			span{
+				height: 0.25in;
+			}
+		}
+		.company{
+			height: 0.625in;
+			font-size: .125in;
+		}
+		.title{
+			height: 0.75in;
+		}
+		.docinfo{
+			height: 0.375in;
+			.sheet_size{
+				width: 0.375in;
+			}
+			.cage_code{
+				width: 1.125in;
+			}
+			.dwg_no{
+				width: 2.375in;
+			}
+		}
+		.sheetinfo{
+			height: 0.25in;
+			.scale{
+				width: 1in;
+			}
+			.sheet_no{
+				width: 1.75in;
+			}
+		}
+	}
+} */
+
+/*Continuation sheet hidden elements*/
+
+body.continuation {
+	.approvers, .company, .title, .rev{
+		display: none;
+	}
+	.titleblock {
+		.col, .dwg_no {
+			border: 0px solid;
+		}
+	}
+}
+
+/* Options form CSS and noprint */
+#options {
+	float: left;
+	margin: 20px;
+	padding: 20px;
+	color: red;
+	border: 3px solid red;
+	text-transform: none;
+	font-size: .125in;
+}
+
+@media print
+{    
+    #options, #options *
+    {
+        display: none !important;
+    }
+}
