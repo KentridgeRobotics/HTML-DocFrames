@@ -164,13 +164,20 @@ div.label {
 	}
 }
 
-div.header::before, .revblock::before {
+div.header::before, .block::before {
 	display: block;
 	text-align: center;
 	font-size: $heading-font-size;
 	width: 100%;
 	line-height: .25in;
 }
+
+.block {
+	position: absolute;
+	div {position: relative;}
+	&::before{border-bottom: 1px solid;}
+}
+
 
 .title::before {content: "TITLE";}
 .cage_code::before {content: "CAGE CODE";}
@@ -179,6 +186,7 @@ div.header::before, .revblock::before {
 .sheet_no::before {content: "SHEET";}
 .rev::before {content: "REV";}
 .revblock::before {content: "REVISION HISTORY";}
+.thirdangle::before {content: "THIRD ANGLE PROJECTION";}
 .description::before {content: "DESCRIPTION";}
 .date::before {content: "DATE";}
 .approved::before {content: "APPROVED";}
@@ -215,10 +223,6 @@ div.header::before, .revblock::before {
 }
 
 .titleblock {
-	position: absolute;
-	bottom: 0px;
-	right: 0px;
-	div {position: relative;}
 	.approvers{
 		vertical-align: top;
 		.row{
@@ -258,11 +262,6 @@ div.header::before, .revblock::before {
 }
 
 .revblock {
-	position: absolute;
-	&::before{
-		height: .25in;
-		border-bottom: 1px solid;
-	}
 	.row {
 		height: .4in;
 		&:first-child {
@@ -273,30 +272,35 @@ div.header::before, .revblock::before {
 	.rev {width: 0.40in;}
 	.description {width: 3in;} /* AS REQUIRED */
 	.date, .approved {width: 1.20in;}
+}
 
+.thirdangle {
+	text-align: center;
+	width: 3in;
+	img {
+		vertical-align: middle;
+		height: 0.7in;
+	}
 }
 
 /* Sheet size-specific docframe options */
-body.size_a_h{
-	.docframe{
-		height: $size_a_height;
-		width: $size_a_width;
-		.horiz li:first-child {counter-reset: h-frame 3;}
-		.vert li:first-child {counter-reset: v-frame 3;}
-		> li:nth-child(n+3) {display: none;}
-	}
+body.size_a_h, body.size_a_v{
+	.horiz >li:first-child {counter-reset: h-frame 3;}
+	.horiz > li:nth-child(n+3) {display: none;}
+	.vert > li:first-child {counter-reset: v-frame 3;}
+	.vert > li:nth-child(n+3) {display: none;}
 	.sheet_size::after {content: "A";}
+	.thirdangle{display: none;}
 }
 
-body.size_a_v{
-	.docframe{
+body.size_a_h .docframe{
+		height: $size_a_height;
+		width: $size_a_width;
+}
+
+body.size_a_v .docframe{
 		height: $size_a_width;
 		width: $size_a_height;
-		.horiz li:first-child {counter-reset: h-frame 3;}
-		.vert li:first-child {counter-reset: v-frame 3;}
-		> li:nth-child(n+3) {display: none;}
-	}
-	.sheet_size::after {content: "A";}
 }
 
 body.size_b{
@@ -388,6 +392,10 @@ body.size_a_h, body.size_a_v, body.size_b, body.size_c {
 			.sheet_no{width: 1.75in;}
 		}
 	}
+	.thirdangle {
+		right: 6.25in;
+		line-height: 0.75in;
+	}
 }
 
 /*Size D, E, F Titleblock Dimensions */
@@ -396,55 +404,43 @@ body.size_d, body.size_e, body.size_f {
 		.horiz{background-size: 0.20in auto}
 		.vert{background-size: auto 0.20in}
 	}
-		.titleblock {
-		.main{
-			width: 5.125in;
-		}
-		.approvers{
-			width: 2.5in;
-		}
+	.titleblock {
+		.main{width: 5.125in;}
+		.approvers{width: 2.5in;}
 		.company{
 			height: 0.625in;
 			font-size: .125in;
 		}
-		.title{
-			height: 1.125in;
-		}
+		.title{height: 1.125in;}
 		.docinfo{
 			height: 0.5in;
 			.sheet_size{
 				width: 0.375in;
 				&::after{line-height: .4in;}
 			}
-			.cage_code{
-				width: 1.25in;
-			}
-			.dwg_no{
-				width: 3in;
-			}
+			.cage_code{width: 1.25in;}
+			.dwg_no{width: 3in;}
 		}
 		.sheetinfo{
 			height: 0.25in;
-			.scale{
-				width: 1.375in;
-			}
-			.sheet_no{
-				width: 1.75in;
-			}
+			.scale{width: 1.375in;}
+			.sheet_no{width: 1.75in;}
 		}
+	}
+	.thirdangle {
+		right: 7.625in;
+		line-height: 1.25in;
 	}
 }
 
 /*Continuation sheet hidden elements*/
 
 body.continuation {
-	.approvers, .company, .title, .rev, .revblock{
+	.approvers, .company, .title, .rev, .revblock, .thirdangle{
 		display: none;
 	}
 	.titleblock {
-		.col, .dwg_no {
-			border: 0px solid;
-		}
+		.col, .dwg_no {border: 0px solid;}
 	}
 }
 

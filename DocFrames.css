@@ -111,12 +111,19 @@ div.label {
     top: 0px;
     left: 0px; }
 
-div.header::before, .revblock::before {
+div.header::before, .block::before {
   display: block;
   text-align: center;
   font-size: 0.175in;
   width: 100%;
   line-height: .25in; }
+
+.block {
+  position: absolute; }
+  .block div {
+    position: relative; }
+  .block::before {
+    border-bottom: 1px solid; }
 
 .title::before {
   content: "TITLE"; }
@@ -138,6 +145,9 @@ div.header::before, .revblock::before {
 
 .revblock::before {
   content: "REVISION HISTORY"; }
+
+.thirdangle::before {
+  content: "THIRD ANGLE PROJECTION"; }
 
 .description::before {
   content: "DESCRIPTION"; }
@@ -179,45 +189,35 @@ div.header::before, .revblock::before {
   .col:last-child {
     border-left: 0px solid; }
 
-.titleblock {
+.titleblock .approvers {
+  vertical-align: top; }
+  .titleblock .approvers .row {
+    height: 0.325in;
+    display: block;
+    position: relative; }
+    .titleblock .approvers .row:last-child {
+      border-bottom: 1px solid; }
+.titleblock .company {
+  padding: 0.05in; }
+  .titleblock .company img {
+    float: left;
+    max-height: 100%;
+    width: auto;
+    margin-right: .125in; }
+.titleblock .sheet_size::before {
+  content: "SIZE"; }
+.titleblock .sheet_size::after {
   position: absolute;
   bottom: 0px;
-  right: 0px; }
-  .titleblock div {
-    position: relative; }
-  .titleblock .approvers {
-    vertical-align: top; }
-    .titleblock .approvers .row {
-      height: 0.325in;
-      display: block;
-      position: relative; }
-      .titleblock .approvers .row:last-child {
-        border-bottom: 1px solid; }
-  .titleblock .company {
-    padding: 0.05in; }
-    .titleblock .company img {
-      float: left;
-      max-height: 100%;
-      width: auto;
-      margin-right: .125in; }
-  .titleblock .sheet_size::before {
-    content: "SIZE"; }
-  .titleblock .sheet_size::after {
-    position: absolute;
-    bottom: 0px;
-    text-align: center;
-    width: 100%; }
-  .titleblock .sheetinfo .sheet_no {
-    float: right;
-    border-left: 1px solid; }
+  text-align: center;
+  width: 100%; }
+.titleblock .sheetinfo .sheet_no {
+  float: right;
+  border-left: 1px solid; }
 
 .revblock {
-  position: absolute;
   /* TODO: move to Sheet specific sizes */
   /* AS REQUIRED */ }
-  .revblock::before {
-    height: .25in;
-    border-bottom: 1px solid; }
   .revblock .row {
     height: .4in; }
     .revblock .row:first-child {
@@ -229,30 +229,34 @@ div.header::before, .revblock::before {
   .revblock .date, .revblock .approved {
     width: 1.20in; }
 
+.thirdangle {
+  text-align: center;
+  width: 3in; }
+  .thirdangle img {
+    vertical-align: middle;
+    height: 0.7in; }
+
 /* Sheet size-specific docframe options */
+body.size_a_h .horiz > li:first-child, body.size_a_v .horiz > li:first-child {
+  counter-reset: h-frame 3; }
+body.size_a_h .horiz > li:nth-child(n+3), body.size_a_v .horiz > li:nth-child(n+3) {
+  display: none; }
+body.size_a_h .vert > li:first-child, body.size_a_v .vert > li:first-child {
+  counter-reset: v-frame 3; }
+body.size_a_h .vert > li:nth-child(n+3), body.size_a_v .vert > li:nth-child(n+3) {
+  display: none; }
+body.size_a_h .sheet_size::after, body.size_a_v .sheet_size::after {
+  content: "A"; }
+body.size_a_h .thirdangle, body.size_a_v .thirdangle {
+  display: none; }
+
 body.size_a_h .docframe {
   height: 8in;
   width: 10.5in; }
-  body.size_a_h .docframe .horiz li:first-child {
-    counter-reset: h-frame 3; }
-  body.size_a_h .docframe .vert li:first-child {
-    counter-reset: v-frame 3; }
-  body.size_a_h .docframe > li:nth-child(n+3) {
-    display: none; }
-body.size_a_h .sheet_size::after {
-  content: "A"; }
 
 body.size_a_v .docframe {
   height: 10.5in;
   width: 8in; }
-  body.size_a_v .docframe .horiz li:first-child {
-    counter-reset: h-frame 3; }
-  body.size_a_v .docframe .vert li:first-child {
-    counter-reset: v-frame 3; }
-  body.size_a_v .docframe > li:nth-child(n+3) {
-    display: none; }
-body.size_a_v .sheet_size::after {
-  content: "A"; }
 
 body.size_b .docframe {
   height: 10.5in;
@@ -352,6 +356,9 @@ body.size_a_h .titleblock .sheetinfo, body.size_a_v .titleblock .sheetinfo, body
     width: 1in; }
   body.size_a_h .titleblock .sheetinfo .sheet_no, body.size_a_v .titleblock .sheetinfo .sheet_no, body.size_b .titleblock .sheetinfo .sheet_no, body.size_c .titleblock .sheetinfo .sheet_no {
     width: 1.75in; }
+body.size_a_h .thirdangle, body.size_a_v .thirdangle, body.size_b .thirdangle, body.size_c .thirdangle {
+  right: 6.25in;
+  line-height: 0.75in; }
 
 /*Size D, E, F Titleblock Dimensions */
 body.size_d .docframe .horiz, body.size_e .docframe .horiz, body.size_f .docframe .horiz {
@@ -383,9 +390,12 @@ body.size_d .titleblock .sheetinfo, body.size_e .titleblock .sheetinfo, body.siz
     width: 1.375in; }
   body.size_d .titleblock .sheetinfo .sheet_no, body.size_e .titleblock .sheetinfo .sheet_no, body.size_f .titleblock .sheetinfo .sheet_no {
     width: 1.75in; }
+body.size_d .thirdangle, body.size_e .thirdangle, body.size_f .thirdangle {
+  right: 7.625in;
+  line-height: 1.25in; }
 
 /*Continuation sheet hidden elements*/
-body.continuation .approvers, body.continuation .company, body.continuation .title, body.continuation .rev, body.continuation .revblock {
+body.continuation .approvers, body.continuation .company, body.continuation .title, body.continuation .rev, body.continuation .revblock, body.continuation .thirdangle {
   display: none; }
 body.continuation .titleblock .col, body.continuation .titleblock .dwg_no {
   border: 0px solid; }
