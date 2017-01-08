@@ -19,7 +19,8 @@ div, span, li, ol {
     display: table;
     table-layout: fixed;
     border-collapse: collapse;
-    background-repeat: no-repeat; }
+    background-repeat: no-repeat;
+    z-index: -20; }
     .docframe ol > li {
       text-align: center; }
   .docframe .horiz {
@@ -332,8 +333,6 @@ body.size_a_h .titleblock .main, body.size_a_v .titleblock .main, body.size_b .t
   width: 4.25in; }
 body.size_a_h .titleblock .approvers, body.size_a_v .titleblock .approvers, body.size_b .titleblock .approvers, body.size_c .titleblock .approvers {
   width: 2in; }
-  body.size_a_h .titleblock .approvers span, body.size_a_v .titleblock .approvers span, body.size_b .titleblock .approvers span, body.size_c .titleblock .approvers span {
-    height: 0.25in; }
 body.size_a_h .titleblock .company, body.size_a_v .titleblock .company, body.size_b .titleblock .company, body.size_c .titleblock .company {
   height: 0.625in;
   font-size: .125in; }
@@ -355,52 +354,36 @@ body.size_a_h .titleblock .sheetinfo, body.size_a_v .titleblock .sheetinfo, body
     width: 1.75in; }
 
 /*Size D, E, F Titleblock Dimensions */
-/* TODO: detail this out!
-body.size_d, body.size_e, body.size_f {   
-	.docframe{
-		.horiz{background-size: 0.20in auto}
-		.vert{background-size: auto 0.20in}
-	}
-	.titleblock {
-		.main{
-			width: 4.25in;
-		}
-		.approvers{
-			width: 2in;
-			span{
-				height: 0.25in;
-			}
-		}
-		.company{
-			height: 0.625in;
-			font-size: .125in;
-		}
-		.title{
-			height: 0.75in;
-		}
-		.docinfo{
-			height: 0.375in;
-			.sheet_size{
-				width: 0.375in;
-			}
-			.cage_code{
-				width: 1.125in;
-			}
-			.dwg_no{
-				width: 2.375in;
-			}
-		}
-		.sheetinfo{
-			height: 0.25in;
-			.scale{
-				width: 1in;
-			}
-			.sheet_no{
-				width: 1.75in;
-			}
-		}
-	}
-} */
+body.size_d .docframe .horiz, body.size_e .docframe .horiz, body.size_f .docframe .horiz {
+  background-size: 0.20in auto; }
+body.size_d .docframe .vert, body.size_e .docframe .vert, body.size_f .docframe .vert {
+  background-size: auto 0.20in; }
+body.size_d .titleblock .main, body.size_e .titleblock .main, body.size_f .titleblock .main {
+  width: 5.125in; }
+body.size_d .titleblock .approvers, body.size_e .titleblock .approvers, body.size_f .titleblock .approvers {
+  width: 2.5in; }
+body.size_d .titleblock .company, body.size_e .titleblock .company, body.size_f .titleblock .company {
+  height: 0.625in;
+  font-size: .125in; }
+body.size_d .titleblock .title, body.size_e .titleblock .title, body.size_f .titleblock .title {
+  height: 1.125in; }
+body.size_d .titleblock .docinfo, body.size_e .titleblock .docinfo, body.size_f .titleblock .docinfo {
+  height: 0.5in; }
+  body.size_d .titleblock .docinfo .sheet_size, body.size_e .titleblock .docinfo .sheet_size, body.size_f .titleblock .docinfo .sheet_size {
+    width: 0.375in; }
+    body.size_d .titleblock .docinfo .sheet_size::after, body.size_e .titleblock .docinfo .sheet_size::after, body.size_f .titleblock .docinfo .sheet_size::after {
+      line-height: .4in; }
+  body.size_d .titleblock .docinfo .cage_code, body.size_e .titleblock .docinfo .cage_code, body.size_f .titleblock .docinfo .cage_code {
+    width: 1.25in; }
+  body.size_d .titleblock .docinfo .dwg_no, body.size_e .titleblock .docinfo .dwg_no, body.size_f .titleblock .docinfo .dwg_no {
+    width: 3in; }
+body.size_d .titleblock .sheetinfo, body.size_e .titleblock .sheetinfo, body.size_f .titleblock .sheetinfo {
+  height: 0.25in; }
+  body.size_d .titleblock .sheetinfo .scale, body.size_e .titleblock .sheetinfo .scale, body.size_f .titleblock .sheetinfo .scale {
+    width: 1.375in; }
+  body.size_d .titleblock .sheetinfo .sheet_no, body.size_e .titleblock .sheetinfo .sheet_no, body.size_f .titleblock .sheetinfo .sheet_no {
+    width: 1.75in; }
+
 /*Continuation sheet hidden elements*/
 body.continuation .approvers, body.continuation .company, body.continuation .title, body.continuation .rev, body.continuation .revblock {
   display: none; }
