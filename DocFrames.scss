@@ -1,220 +1,232 @@
 $page-margin: 0.5in;
+$print-margin: 0.25in;
+$frame-margin: $page-margin - $print-margin;
 
-$size-a-height: 8.5in;
-$size-a-width: 11.0in;
+$size-a-height: 8.5in - 2 * $print-margin;
+$size-a-width: 11.0in - 2 * $print-margin;
 
-$size-b-height: 11.0in;
-$size-b-width: 17.0in;
+$size-b-height: 11.0in - 2 * $print-margin;
+$size-b-width: 17.0in - 2 * $print-margin;
 
-$size-c-height: 17.0in;
-$size-c-width: 22.0in;
+$size-c-height: 17.0in - 2 * $print-margin;
+$size-c-width: 22.0in - 2 * $print-margin;
 
-$size-d-height: 22.0in;
-$size-d-width: 34.0in;
+$size-d-height: 22.0in - 2 * $print-margin;
+$size-d-width: 34.0in - 2 * $print-margin;
 
-$size-e-height: 34.0in;
-$size-e-width: 44.0in;
+$size-e-height: 34.0in - 2 * $print-margin;
+$size-e-width: 44.0in - 2 * $print-margin;
 
-$size-f-height: 28.0in;
-$size-f-width: 40.0in;
+$size-f-height: 28.0in - 2 * $print-margin;
+$size-f-width: 40.0in - 2 * $print-margin;
+
+$std-font-size: .24in;
+$label-font-size: .10in;
+$heading-font-size: .175in;
 
 
+/* Top level Sheet Format Rules */
 body {
   padding:0px;
   margin:0px;
-  font: 0.24in "Lucida Console", Monaco, monospace;
+  font: $std-font-size "Lucida Console", Monaco, monospace;
   text-transform: uppercase;
 }
 
-div, span, li, ol {
-	box-sizing: border-box;
-}
+div, span, li, ol {box-sizing: border-box;}
 
 .docframe {
-	position: absolute;
+	padding:$print-margin;
+	position: relative;
+	margin: 0px;
+	page-break-after: always;
 	ol{
 		margin: 0px;
 		padding: 0px;
+		display: table;
+		table-layout: fixed;
+		border-collapse: collapse;
+		background-repeat: no-repeat;
+		> li {
+			text-align: center;
+		}
 	}
 
 	.horiz {
-		height: $page-margin;
+		height: $frame-margin;
 		width: 100%;
 		position: absolute;
-		/* TODO: reverse these? */
+		left: 0px;
 		> li {
-			counter-increment: h-frame;
-			height: 100%;
-			text-align: center; 
+			counter-increment: h-frame -1;
 			border-left: 1px solid;
-			display: inline-block;
-			&:before {
+			display: table-cell;
+			vertical-align: middle;
+			&::before {
 				content: counter(h-frame, decimal) " ";
-				line-height: .5in;
 			}
 			&:first-child {
-  				counter-reset: h-frame;
   				border-left: 0px solid;
   			}
+		}
+		&.top {
+			background-image: url(images/microfilm_arrow_t.svg);
+			background-position: center bottom;
+		}
+		&.bottom {
+			background-image: url(images/microfilm_arrow_b.svg);
+			background-position: center top;
 		}
 	}
 
 	.vert {
-		width: $page-margin;
+		width: $frame-margin;
 		height: 100%;
 		position: absolute;
-		/* TODO: reverse these? */
+		top: 0px;
+
 		> li {
 			width: 100%;
-			display: block;
-			text-align: center;
+			display: table-row;
+			counter-increment: v-frame -1;
 			border-top: 1px solid;
-			counter-increment: v-frame;
-			&:before {
+			&::before {
+				vertical-align: middle;
+				display: table-cell;
 				content: counter(v-frame, upper-alpha) " ";
 			}
 			&:first-child {
-  				counter-reset: v-frame;
   				border-top: 0px solid;
   			}
 		}
+		&.left {
+			background-image: url(images/microfilm_arrow_l.svg);
+			background-position: right center;
+		}
+		&.right {
+			background-image: url(images/microfilm_arrow_r.svg);
+			background-position: left center;
+		}
+	}
+
+	.content {
+		position: relative;
+		border-style: solid;
+		border-width: 2px;
+		height: 100%;
+		width: 100%;
 	}
 }
 
-/* size-specific docframe options */
-body.size_a_h{
-	.docframe{
-		height: $size_a_height;
-		width: $size_a_width;
-		li:nth-child(n+3) {
-			display: none;
-		}
-		.horiz > li{
-			width: 5.50in;
-		}
-		.vert > li{
-			line-height: 4.25in;
-		}
-	}
-	.content{
-		height: $size_a_height - 2 * $page-margin;
-		width: $size_a_width - 2 * $page-margin;
-	}
+/* content area table classes */
+.border {
+	border: 1px solid;
 }
 
-body.size_a_v{
-	.docframe{
-		height: $size_a_width;
-		width: $size_a_height;
-		li:nth-child(n+3) {
-			display: none;
-		}
-		.horiz > li{
-			width: 4.25in;
-		}
-		.vert > li{
-			line-height: 5.50in;
-		}
-	}
-	.content{
-		height: $size_a_width - 2 * $page-margin;
-		width: $size_a_height - 2 * $page-margin;
-	}
+.border-thick {
+	border: 2px solid;
 }
 
-body.size_b{
-	.docframe{
-		height: $size_b_height;
-		width: $size_b_width;
-		.horiz > li{
-			width: 4.25in; /* TODO: size A, B, D only */;
-			&:nth-child(n+5) {
-				display: none;
-			}
-		}
-		.vert > li{
-			line-height: 5.50in;
-			&:nth-child(n+3) {
-				display: none;
-			}
-		}
-	}
-	.content{
-		height: $size_b_height - 2 * $page-margin;
-		width: $size_b_width - 2 * $page-margin;
-	}
-}
-
+/* TODO: should left/right be floated instead? */
 .top {
 	top: 0px;
+	border-top-width: 0px;
 }
 
-.bottom, .titleblock {
+.bottom {
 	bottom: 0px;
+	border-bottom-width: 0px;
 }
 
 .left {
 	left: 0px;
+	border-left-width: 0px;
 }
 
-.right, .titleblock{
+.right {
 	right: 0px;
+	border-right-width: 0px;
 }
 
-.label {
-	font-size: 0.1in;
-	line-height: 0.12in;
-	position: absolute;
-	top: 0px;
-	left: 0px;
+/* Labelled Div Classes */
+div::before {display: none;} /* always hide div befores unless a header or labelled div */
+
+div.label {
+	position: relative;
+	&::before {
+		display: block;
+		font-size: 0.1in;
+		line-height: 0.12in;
+		position: absolute;
+		top: 0px;
+		left: 0px;
+	}
 }
 
-.content {
-	position: absolute;
-	border-style: solid;
-    border-width: 2px;
-    margin: $page-margin; 
+div.header::before, .revblock::before {
+	display: block;
+	text-align: center;
+	font-size: $heading-font-size;
+	width: 100%;
+	line-height: .25in;
+}
+
+.title::before {content: "TITLE";}
+.cage_code::before {content: "CAGE CODE";}
+.dwg_no::before {content: "DWG NO";}
+.scale::before {content: "SCALE";}
+.sheet_no::before {content: "SHEET";}
+.rev::before {content: "REV";}
+.revblock::before {content: "REVISION HISTORY";}
+.description::before {content: "DESCRIPTION";}
+.date::before {content: "DATE";}
+.approved::before {content: "APPROVED";}
+.drawn_by::before {content: "DRAWN BY";}
+.design_by::before {content: "DESIGN BY";}
+.checked_by::before {content: "CHECKED BY";}
+
+/* Table formatting base classes */
+.row{
+	display: block;
+	border-bottom: 1px solid;
+	position: relative;
+	> div{
+		float: left;
+		height: 100%;
+		border-right: 1px solid;
+		&:last-child{
+			border-right: 0px solid;
+		}
+	}
+	&:last-child{
+		border-bottom: 0px solid;
+	}
+}
+
+.col{
+	float: right;
+	height: 100%;
+	border-left: 1px solid;
+	position: relative;
+	&:last-child {
+		border-left: 0px solid;
+	}
 }
 
 .titleblock {
 	position: absolute;
-	border-style: solid;
-    border-width: 2px 0px 0px 2px;
-	div {
-		position: relative;
-	}
-
-	.col{
-		float: right;
-		height: 100%;
-		border-left: 1px solid;
-		&:last-child {
-			border-left: 0px solid;
-		}
-	}
-
-	.row{
-		display: block;
-		border-bottom: 1px solid;
-		> div{
-			float: left;
-			height: 100%;
-			border-right: 1px solid;
-			&:last-child{
-				border-right: 0px solid;
-			}
-		}
-		&:last-child{
-			border-bottom: 0px solid;
-		}
-	}
+	bottom: 0px;
+	right: 0px;
+	div {position: relative;}
 	.approvers{
 		vertical-align: top;
-		span{
-			/*height: 0.25in; */
+		.row{
+			height: 0.325in;
 			display: block;
 			position: relative;
-			border-bottom: 1px dashed;
+			&:last-child{
+				border-bottom: 1px solid;
+			}
 		}
 	}
 	.company{
@@ -226,10 +238,17 @@ body.size_b{
 			margin-right: .125in;
 		}
 	}
-	.sheet_size{
-		vertical-align: bottom;
-		text-align: center;
-		line-height: 0.45in;
+	.sheet_size {
+		&::before {
+			content:"SIZE";
+		}
+
+		&::after {
+			position: absolute;
+			bottom: 0px;
+			text-align: center;
+			width: 100%;
+		}
 	}
 	.sheetinfo .sheet_no{
 		float: right;
@@ -237,10 +256,118 @@ body.size_b{
 	}
 }
 
+.revblock {
+	position: absolute;
+	&::before{
+		height: .25in;
+		border-bottom: 1px solid;
+	}
+	.row {
+		height: .4in;
+		&:first-child {
+			height: .25in;
+		}
+	}
+	/* TODO: move to Sheet specific sizes */
+	.rev {width: 0.40in;}
+	.description {width: 3in;} /* AS REQUIRED */
+	.date, .approved {width: 1.20in;}
 
-/*Size A, B, C Titleblock Dimensions */
+}
+
+/* Sheet size-specific docframe options */
+body.size_a_h{
+	.docframe{
+		height: $size_a_height;
+		width: $size_a_width;
+		.horiz li:first-child {counter-reset: h-frame 3;}
+		.vert li:first-child {counter-reset: v-frame 3;}
+		> li:nth-child(n+3) {display: none;}
+	}
+	.sheet_size::after {content: "A";}
+}
+
+body.size_a_v{
+	.docframe{
+		height: $size_a_width;
+		width: $size_a_height;
+		.horiz li:first-child {counter-reset: h-frame 3;}
+		.vert li:first-child {counter-reset: v-frame 3;}
+		> li:nth-child(n+3) {display: none;}
+	}
+	.sheet_size::after {content: "A";}
+}
+
+body.size_b{
+	.docframe{
+		height: $size_b_height;
+		width: $size_b_width;
+		.horiz > li:first-child {counter-reset: h-frame 5;}
+		.horiz > li:nth-child(n+5) {display: none;}
+		.vert > li:first-child {counter-reset: v-frame 3;}
+		.vert > li:nth-child(n+3) {display: none;}
+	}
+	.sheet_size::after {content: "B";}
+}
+
+body.size_c{
+	.docframe{
+		height: $size_c_height;
+		width: $size_c_width;
+		.horiz > li:first-child {counter-reset: h-frame 5;}
+		.horiz > li:nth-child(n+5) {display: none;}
+		.vert > li:first-child {counter-reset: v-frame 5;}
+		.vert > li:nth-child(n+5) {display: none;}
+	}
+	.sheet_size::after {content: "C";}
+}
+
+body.size_d{
+	.docframe{
+		height: $size_d_height;
+		width: $size_d_width;
+		.horiz > li:first-child {counter-reset: h-frame 9;}
+		.horiz > li:nth-child(n+9) {display: none;}
+		.vert > li:first-child {counter-reset: v-frame 5;}
+		.vert > li:nth-child(n+5) {display: none;}
+	}
+	.sheet_size::after {content: "D";}
+}
+
+body.size_e{
+	.docframe{
+		height: $size_e_height;
+		width: $size_e_width;
+		.horiz > li:first-child {counter-reset: h-frame 9;}
+		.horiz > li:nth-child(n+9) {display: none;}
+		.vert > li:first-child {counter-reset: v-frame 9;}
+		.vert > li:nth-child(n+9) {display: none;}
+	}
+	.sheet_size::after {
+		content: "E";
+	}
+}
+
+body.size_f{
+	.docframe{
+		height: $size_f_height;
+		width: $size_f_width;
+		.horiz > li:first-child {counter-reset: h-frame 9;}
+		.horiz > li:nth-child(n+9) {display: none;}
+		.vert > li:first-child {counter-reset: v-frame 7;}
+		.vert > li:nth-child(n+7) {display: none;}
+	}
+	.sheet_size::after {
+		content: "F";
+	}
+}
+/*Size A, B, C Dimensions */
 
 body.size_a_h, body.size_a_v, body.size_b, body.size_c {   
+	.docframe{
+		.horiz{background-size: 0.15in auto}
+		.vert{background-size: auto 0.15in}
+	}
 	.titleblock {
 		.main{
 			width: 4.25in;
@@ -285,6 +412,10 @@ body.size_a_h, body.size_a_v, body.size_b, body.size_c {
 /*Size D, E, F Titleblock Dimensions */
 /* TODO: detail this out!
 body.size_d, body.size_e, body.size_f {   
+	.docframe{
+		.horiz{background-size: 0.20in auto}
+		.vert{background-size: auto 0.20in}
+	}
 	.titleblock {
 		.main{
 			width: 4.25in;
@@ -329,7 +460,7 @@ body.size_d, body.size_e, body.size_f {
 /*Continuation sheet hidden elements*/
 
 body.continuation {
-	.approvers, .company, .title, .rev{
+	.approvers, .company, .title, .rev, .revblock{
 		display: none;
 	}
 	.titleblock {
@@ -352,6 +483,9 @@ body.continuation {
 
 @media print
 {    
+    @page {
+        margin: $print-margin;
+    }
     #options, #options *
     {
         display: none !important;

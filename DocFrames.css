@@ -1,3 +1,4 @@
+/* Top level Sheet Format Rules */
 body {
   padding: 0px;
   margin: 0px;
@@ -8,142 +9,189 @@ div, span, li, ol {
   box-sizing: border-box; }
 
 .docframe {
-  position: absolute; }
+  padding: 0.25in;
+  position: relative;
+  margin: 0px;
+  page-break-after: always; }
   .docframe ol {
     margin: 0px;
-    padding: 0px; }
+    padding: 0px;
+    display: table;
+    table-layout: fixed;
+    border-collapse: collapse;
+    background-repeat: no-repeat; }
+    .docframe ol > li {
+      text-align: center; }
   .docframe .horiz {
-    height: 0.5in;
+    height: 0.25in;
     width: 100%;
     position: absolute;
-    /* TODO: reverse these? */ }
+    left: 0px; }
     .docframe .horiz > li {
-      counter-increment: h-frame;
-      height: 100%;
-      text-align: center;
+      counter-increment: h-frame -1;
       border-left: 1px solid;
-      display: inline-block; }
-      .docframe .horiz > li:before {
-        content: counter(h-frame,decimal) " ";
-        line-height: .5in; }
+      display: table-cell;
+      vertical-align: middle; }
+      .docframe .horiz > li::before {
+        content: counter(h-frame,decimal) " "; }
       .docframe .horiz > li:first-child {
-        counter-reset: h-frame;
         border-left: 0px solid; }
+    .docframe .horiz.top {
+      background-image: url(images/microfilm_arrow_t.svg);
+      background-position: center bottom; }
+    .docframe .horiz.bottom {
+      background-image: url(images/microfilm_arrow_b.svg);
+      background-position: center top; }
   .docframe .vert {
-    width: 0.5in;
+    width: 0.25in;
     height: 100%;
     position: absolute;
-    /* TODO: reverse these? */ }
+    top: 0px; }
     .docframe .vert > li {
       width: 100%;
-      display: block;
-      text-align: center;
-      border-top: 1px solid;
-      counter-increment: v-frame; }
-      .docframe .vert > li:before {
+      display: table-row;
+      counter-increment: v-frame -1;
+      border-top: 1px solid; }
+      .docframe .vert > li::before {
+        vertical-align: middle;
+        display: table-cell;
         content: counter(v-frame,upper-alpha) " "; }
       .docframe .vert > li:first-child {
-        counter-reset: v-frame;
         border-top: 0px solid; }
+    .docframe .vert.left {
+      background-image: url(images/microfilm_arrow_l.svg);
+      background-position: right center; }
+    .docframe .vert.right {
+      background-image: url(images/microfilm_arrow_r.svg);
+      background-position: left center; }
+  .docframe .content {
+    position: relative;
+    border-style: solid;
+    border-width: 2px;
+    height: 100%;
+    width: 100%; }
 
-/* size-specific docframe options */
-body.size_a_h .docframe {
-  height: 8.5in;
-  width: 11in; }
-  body.size_a_h .docframe li:nth-child(n+3) {
-    display: none; }
-  body.size_a_h .docframe .horiz > li {
-    width: 5.50in; }
-  body.size_a_h .docframe .vert > li {
-    line-height: 4.25in; }
-body.size_a_h .content {
-  height: 7.5in;
-  width: 10in; }
+/* content area table classes */
+.border {
+  border: 1px solid; }
 
-body.size_a_v .docframe {
-  height: 11in;
-  width: 8.5in; }
-  body.size_a_v .docframe li:nth-child(n+3) {
-    display: none; }
-  body.size_a_v .docframe .horiz > li {
-    width: 4.25in; }
-  body.size_a_v .docframe .vert > li {
-    line-height: 5.50in; }
-body.size_a_v .content {
-  height: 10in;
-  width: 7.5in; }
+.border-thick {
+  border: 2px solid; }
 
-body.size_b .docframe {
-  height: 11in;
-  width: 17in; }
-  body.size_b .docframe .horiz > li {
-    width: 4.25in;
-    /* TODO: size A, B, D only */ }
-    body.size_b .docframe .horiz > li:nth-child(n+5) {
-      display: none; }
-  body.size_b .docframe .vert > li {
-    line-height: 5.50in; }
-    body.size_b .docframe .vert > li:nth-child(n+3) {
-      display: none; }
-body.size_b .content {
-  height: 10in;
-  width: 16in; }
-
+/* TODO: should left/right be floated instead? */
 .top {
-  top: 0px; }
+  top: 0px;
+  border-top-width: 0px; }
 
-.bottom, .titleblock {
-  bottom: 0px; }
+.bottom {
+  bottom: 0px;
+  border-bottom-width: 0px; }
 
 .left {
-  left: 0px; }
+  left: 0px;
+  border-left-width: 0px; }
 
-.right, .titleblock {
-  right: 0px; }
+.right {
+  right: 0px;
+  border-right-width: 0px; }
 
-.label {
-  font-size: 0.1in;
-  line-height: 0.12in;
-  position: absolute;
-  top: 0px;
-  left: 0px; }
+/* Labelled Div Classes */
+div::before {
+  display: none; }
 
-.content {
-  position: absolute;
-  border-style: solid;
-  border-width: 2px;
-  margin: 0.5in; }
+/* always hide div befores unless a header or labelled div */
+div.label {
+  position: relative; }
+  div.label::before {
+    display: block;
+    font-size: 0.1in;
+    line-height: 0.12in;
+    position: absolute;
+    top: 0px;
+    left: 0px; }
+
+div.header::before, .revblock::before {
+  display: block;
+  text-align: center;
+  font-size: 0.175in;
+  width: 100%;
+  line-height: .25in; }
+
+.title::before {
+  content: "TITLE"; }
+
+.cage_code::before {
+  content: "CAGE CODE"; }
+
+.dwg_no::before {
+  content: "DWG NO"; }
+
+.scale::before {
+  content: "SCALE"; }
+
+.sheet_no::before {
+  content: "SHEET"; }
+
+.rev::before {
+  content: "REV"; }
+
+.revblock::before {
+  content: "REVISION HISTORY"; }
+
+.description::before {
+  content: "DESCRIPTION"; }
+
+.date::before {
+  content: "DATE"; }
+
+.approved::before {
+  content: "APPROVED"; }
+
+.drawn_by::before {
+  content: "DRAWN BY"; }
+
+.design_by::before {
+  content: "DESIGN BY"; }
+
+.checked_by::before {
+  content: "CHECKED BY"; }
+
+/* Table formatting base classes */
+.row {
+  display: block;
+  border-bottom: 1px solid;
+  position: relative; }
+  .row > div {
+    float: left;
+    height: 100%;
+    border-right: 1px solid; }
+    .row > div:last-child {
+      border-right: 0px solid; }
+  .row:last-child {
+    border-bottom: 0px solid; }
+
+.col {
+  float: right;
+  height: 100%;
+  border-left: 1px solid;
+  position: relative; }
+  .col:last-child {
+    border-left: 0px solid; }
 
 .titleblock {
   position: absolute;
-  border-style: solid;
-  border-width: 2px 0px 0px 2px; }
+  bottom: 0px;
+  right: 0px; }
   .titleblock div {
     position: relative; }
-  .titleblock .col {
-    float: right;
-    height: 100%;
-    border-left: 1px solid; }
-    .titleblock .col:last-child {
-      border-left: 0px solid; }
-  .titleblock .row {
-    display: block;
-    border-bottom: 1px solid; }
-    .titleblock .row > div {
-      float: left;
-      height: 100%;
-      border-right: 1px solid; }
-      .titleblock .row > div:last-child {
-        border-right: 0px solid; }
-    .titleblock .row:last-child {
-      border-bottom: 0px solid; }
   .titleblock .approvers {
     vertical-align: top; }
-    .titleblock .approvers span {
-      /*height: 0.25in; */
+    .titleblock .approvers .row {
+      height: 0.325in;
       display: block;
-      position: relative;
-      border-bottom: 1px dashed; }
+      position: relative; }
+      .titleblock .approvers .row:last-child {
+        border-bottom: 1px solid; }
   .titleblock .company {
     padding: 0.05in; }
     .titleblock .company img {
@@ -151,15 +199,135 @@ body.size_b .content {
       max-height: 100%;
       width: auto;
       margin-right: .125in; }
-  .titleblock .sheet_size {
-    vertical-align: bottom;
+  .titleblock .sheet_size::before {
+    content: "SIZE"; }
+  .titleblock .sheet_size::after {
+    position: absolute;
+    bottom: 0px;
     text-align: center;
-    line-height: 0.45in; }
+    width: 100%; }
   .titleblock .sheetinfo .sheet_no {
     float: right;
     border-left: 1px solid; }
 
-/*Size A, B, C Titleblock Dimensions */
+.revblock {
+  position: absolute;
+  /* TODO: move to Sheet specific sizes */
+  /* AS REQUIRED */ }
+  .revblock::before {
+    height: .25in;
+    border-bottom: 1px solid; }
+  .revblock .row {
+    height: .4in; }
+    .revblock .row:first-child {
+      height: .25in; }
+  .revblock .rev {
+    width: 0.40in; }
+  .revblock .description {
+    width: 3in; }
+  .revblock .date, .revblock .approved {
+    width: 1.20in; }
+
+/* Sheet size-specific docframe options */
+body.size_a_h .docframe {
+  height: 8in;
+  width: 10.5in; }
+  body.size_a_h .docframe .horiz li:first-child {
+    counter-reset: h-frame 3; }
+  body.size_a_h .docframe .vert li:first-child {
+    counter-reset: v-frame 3; }
+  body.size_a_h .docframe > li:nth-child(n+3) {
+    display: none; }
+body.size_a_h .sheet_size::after {
+  content: "A"; }
+
+body.size_a_v .docframe {
+  height: 10.5in;
+  width: 8in; }
+  body.size_a_v .docframe .horiz li:first-child {
+    counter-reset: h-frame 3; }
+  body.size_a_v .docframe .vert li:first-child {
+    counter-reset: v-frame 3; }
+  body.size_a_v .docframe > li:nth-child(n+3) {
+    display: none; }
+body.size_a_v .sheet_size::after {
+  content: "A"; }
+
+body.size_b .docframe {
+  height: 10.5in;
+  width: 16.5in; }
+  body.size_b .docframe .horiz > li:first-child {
+    counter-reset: h-frame 5; }
+  body.size_b .docframe .horiz > li:nth-child(n+5) {
+    display: none; }
+  body.size_b .docframe .vert > li:first-child {
+    counter-reset: v-frame 3; }
+  body.size_b .docframe .vert > li:nth-child(n+3) {
+    display: none; }
+body.size_b .sheet_size::after {
+  content: "B"; }
+
+body.size_c .docframe {
+  height: 16.5in;
+  width: 21.5in; }
+  body.size_c .docframe .horiz > li:first-child {
+    counter-reset: h-frame 5; }
+  body.size_c .docframe .horiz > li:nth-child(n+5) {
+    display: none; }
+  body.size_c .docframe .vert > li:first-child {
+    counter-reset: v-frame 5; }
+  body.size_c .docframe .vert > li:nth-child(n+5) {
+    display: none; }
+body.size_c .sheet_size::after {
+  content: "C"; }
+
+body.size_d .docframe {
+  height: 21.5in;
+  width: 33.5in; }
+  body.size_d .docframe .horiz > li:first-child {
+    counter-reset: h-frame 9; }
+  body.size_d .docframe .horiz > li:nth-child(n+9) {
+    display: none; }
+  body.size_d .docframe .vert > li:first-child {
+    counter-reset: v-frame 5; }
+  body.size_d .docframe .vert > li:nth-child(n+5) {
+    display: none; }
+body.size_d .sheet_size::after {
+  content: "D"; }
+
+body.size_e .docframe {
+  height: 33.5in;
+  width: 43.5in; }
+  body.size_e .docframe .horiz > li:first-child {
+    counter-reset: h-frame 9; }
+  body.size_e .docframe .horiz > li:nth-child(n+9) {
+    display: none; }
+  body.size_e .docframe .vert > li:first-child {
+    counter-reset: v-frame 9; }
+  body.size_e .docframe .vert > li:nth-child(n+9) {
+    display: none; }
+body.size_e .sheet_size::after {
+  content: "E"; }
+
+body.size_f .docframe {
+  height: 27.5in;
+  width: 39.5in; }
+  body.size_f .docframe .horiz > li:first-child {
+    counter-reset: h-frame 9; }
+  body.size_f .docframe .horiz > li:nth-child(n+9) {
+    display: none; }
+  body.size_f .docframe .vert > li:first-child {
+    counter-reset: v-frame 7; }
+  body.size_f .docframe .vert > li:nth-child(n+7) {
+    display: none; }
+body.size_f .sheet_size::after {
+  content: "F"; }
+
+/*Size A, B, C Dimensions */
+body.size_a_h .docframe .horiz, body.size_a_v .docframe .horiz, body.size_b .docframe .horiz, body.size_c .docframe .horiz {
+  background-size: 0.15in auto; }
+body.size_a_h .docframe .vert, body.size_a_v .docframe .vert, body.size_b .docframe .vert, body.size_c .docframe .vert {
+  background-size: auto 0.15in; }
 body.size_a_h .titleblock .main, body.size_a_v .titleblock .main, body.size_b .titleblock .main, body.size_c .titleblock .main {
   width: 4.25in; }
 body.size_a_h .titleblock .approvers, body.size_a_v .titleblock .approvers, body.size_b .titleblock .approvers, body.size_c .titleblock .approvers {
@@ -189,6 +357,10 @@ body.size_a_h .titleblock .sheetinfo, body.size_a_v .titleblock .sheetinfo, body
 /*Size D, E, F Titleblock Dimensions */
 /* TODO: detail this out!
 body.size_d, body.size_e, body.size_f {   
+	.docframe{
+		.horiz{background-size: 0.20in auto}
+		.vert{background-size: auto 0.20in}
+	}
 	.titleblock {
 		.main{
 			width: 4.25in;
@@ -230,7 +402,7 @@ body.size_d, body.size_e, body.size_f {
 	}
 } */
 /*Continuation sheet hidden elements*/
-body.continuation .approvers, body.continuation .company, body.continuation .title, body.continuation .rev {
+body.continuation .approvers, body.continuation .company, body.continuation .title, body.continuation .rev, body.continuation .revblock {
   display: none; }
 body.continuation .titleblock .col, body.continuation .titleblock .dwg_no {
   border: 0px solid; }
@@ -246,6 +418,8 @@ body.continuation .titleblock .col, body.continuation .titleblock .dwg_no {
   font-size: .125in; }
 
 @media print {
+  @page {
+    margin: 0.25in; }
   #options, #options * {
     display: none !important; } }
 
